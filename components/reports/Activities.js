@@ -24,8 +24,8 @@ const readSampleData = async () => {
   const result = await readRecords('Steps', {
     timeRangeFilter: {
       operator: 'between',
-      startTime: '2023-01-09T12:00:00.405Z',
-      endTime: '2023-06-09T23:53:15.405Z',
+      startTime: '2023-07-26T12:00:00.405Z',
+      endTime: '2023-07-27T23:53:15.405Z',
     },
   });
   console.log("Result: ", result);
