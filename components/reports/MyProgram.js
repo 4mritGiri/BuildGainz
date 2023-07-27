@@ -32,7 +32,6 @@ const MyProgram = ({ data }) => {
           <Text style={styles.workoutName}>{data.workoutName} </Text>
           <Text style={styles.details}>{data.details} </Text>
         </ImageBackground>
-        <Image source={{ uri: data.image }} style={styles.image} />
       </View>
     </>
   );
@@ -52,6 +51,9 @@ const styles = StyleSheet.create({
   image: {
     height: hp("20"),
     width: wp("75"),
+    padding: 10,
+    flexDirection: "column",
+    justifyContent: "space-around"
   },
   workoutName: {
     fontSize: wp("6"),
