@@ -19,6 +19,10 @@ web-build/
 # Metro
 .metro-health-check*
 
+# Android 
+android/
+android/**/*
+
 # debug
 npm-debug.*
 yarn-debug.*
