@@ -11,7 +11,7 @@ const MyProgram = ({data}) => {
     <View style={[styles.container,]}>
         <ImageBackground 
             style={styles.image}
-            resource={require('../../assets/images/icon.png')}
+            source={{uri: data.image}}
         >
             <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: null}}>
                 <Text style={styles.details}>Next workout</Text>
@@ -23,7 +23,7 @@ const MyProgram = ({data}) => {
             <Text style={styles.details}>{data.details} </Text>
 
         </ImageBackground>
-        <Image require={require('../../assets/images/icon.png')} style={styles.image} />
+        <Image source={{uri: data.image}} style={styles.image} />
     </View>
   </>
   )
@@ -38,8 +38,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         width: wp('75'),
         marginHorizontal: 10,
-        backgroundImage: "url(../../assets/images/icon.png)",
-        padding: 10,
+        overflow: 'hidden',
     },
     image: {
         height: hp('20'),
