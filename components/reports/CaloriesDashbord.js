@@ -1,9 +1,12 @@
-import { StyleSheet, } from 'react-native'
-import React from 'react'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { Text, View, darkColor, ligntColors } from '../../components/Themed';
-import { ProgressChart } from 'react-native-chart-kit';
-import { useColorScheme } from 'react-native';
+import { StyleSheet } from "react-native";
+import React from "react";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { Text, View, darkColor, ligntColors } from "../../components/Themed";
+import { ProgressChart } from "react-native-chart-kit";
+import { useColorScheme } from "react-native";
 
 // import {
 //   initialize,
@@ -32,10 +35,10 @@ import { useColorScheme } from 'react-native';
 //   console.log(result);
 // }
 
-const CaloriesDashbord = ({earnedCalori, burnedCalori}) => {
-  const colorScheme = useColorScheme()==='light' ;
+const CaloriesDashbord = ({ earnedCalori, burnedCalori }) => {
+  const colorScheme = useColorScheme() === "light";
 
-  const leftCalori  = earnedCalori - burnedCalori;
+  const leftCalori = earnedCalori - burnedCalori;
 
   const chartConfig = {
     backgroundGradientFrom: "#1E2923",
@@ -45,56 +48,90 @@ const CaloriesDashbord = ({earnedCalori, burnedCalori}) => {
     color: (opacity = 1) => `rgba(49,49,204, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.6,
-    useShadowColorFromDataset: false
+    useShadowColorFromDataset: false,
   };
 
-  const leftCaloriPresent = burnedCalori / earnedCalori ;
+  const leftCaloriPresent = burnedCalori / earnedCalori;
   const data = {
-    labels: [ "Run"],
-    data: [leftCaloriPresent]
+    labels: ["Run"],
+    data: [leftCaloriPresent],
   };
   // console.log(leftCaloriPresent*100);
 
   return (
-    <View darkColor={darkColor.darkGray} lightColor={ligntColors.lightGray} style={[styles.container]}>
+    <View
+      darkColor={darkColor.darkGray}
+      lightColor={ligntColors.lightGray}
+      style={[styles.container]}
+    >
       <ProgressChart
         data={data}
-        width={wp('60')}
+        width={wp("60")}
         height={wp(46)}
         strokeWidth={15}
         radius={wp(16)}
         chartConfig={chartConfig}
         hideLegend={true}
       />
-      <View darkColor={"rgba(0,0,0,0)"} lightColor={"rgba(255,255,255,0)"} style={[styles.innerContainer, {left: wp('3')}]}>
-        <Text style={{fontSize: wp('5'), fontWeight: '600',textAlign: 'center'}}>{earnedCalori}</Text>
-        <Text style={{fontSize: wp('4'), textAlign: 'center'}}>Earned Calories</Text>
+      <View
+        darkColor={"rgba(0,0,0,0)"}
+        lightColor={"rgba(255,255,255,0)"}
+        style={[styles.innerContainer, { left: wp("3") }]}
+      >
+        <Text
+          style={{ fontSize: wp("5"), fontWeight: "600", textAlign: "center" }}
+        >
+          {earnedCalori}
+        </Text>
+        <Text style={{ fontSize: wp("4"), textAlign: "center" }}>
+          Earned Calories
+        </Text>
       </View>
-      <View darkColor={"rgba(0,0,0,0)"} lightColor={"rgba(255,255,255,0)"} style={styles.innerContainer}>
-        <Text style={{fontSize: wp('5'), fontWeight: '600',textAlign: 'center'}}>{leftCalori}</Text>
-        <Text style={{fontSize: wp('4'), textAlign: 'center'}}>Calories left</Text>
+      <View
+        darkColor={"rgba(0,0,0,0)"}
+        lightColor={"rgba(255,255,255,0)"}
+        style={styles.innerContainer}
+      >
+        <Text
+          style={{ fontSize: wp("5"), fontWeight: "600", textAlign: "center" }}
+        >
+          {leftCalori}
+        </Text>
+        <Text style={{ fontSize: wp("4"), textAlign: "center" }}>
+          Calories left
+        </Text>
       </View>
-      <View darkColor={"rgba(0,0,0,0)"} lightColor={"rgba(255,255,255,0)"} style={[styles.innerContainer, {right: wp('2.4')}]}>
-        <Text style={{fontSize: wp('5'), fontWeight: '600',textAlign: 'center'}}>{burnedCalori}</Text>
-        <Text style={{fontSize: wp('4'), textAlign: 'center'}}>Burned Calories</Text>
+      <View
+        darkColor={"rgba(0,0,0,0)"}
+        lightColor={"rgba(255,255,255,0)"}
+        style={[styles.innerContainer, { right: wp("2.4") }]}
+      >
+        <Text
+          style={{ fontSize: wp("5"), fontWeight: "600", textAlign: "center" }}
+        >
+          {burnedCalori}
+        </Text>
+        <Text style={{ fontSize: wp("4"), textAlign: "center" }}>
+          Burned Calories
+        </Text>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default CaloriesDashbord
+export default CaloriesDashbord;
 
 const styles = StyleSheet.create({
-    container: {
-        borderRadius: 15,
-        marginVertical: 10,
-        padding: 10,
-        height: hp('22'),
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    innerContainer: {
-      position: 'absolute',
-      top: hp("9")
-    }
-})
+  container: {
+    borderRadius: 15,
+    marginVertical: 10,
+    padding: 10,
+    height: hp("22"),
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  innerContainer: {
+    position: "absolute",
+    top: hp("9"),
+  },
+});
