@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Image } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { Text, View, darkColor, ligntColors } from "../../components/Themed";
+import useHealthData from "../../hooks/useHealthData";
 
 import {
   initialize,
@@ -16,49 +17,60 @@ import {
 
 const image = "../../assets/constant/runner.png";
 const Activities = () => {
-  
-  const readSampleData = async () => {
-    // initialize the client
-    const isInitialized = await initialize();
-  
-    // request permissions
-    const grantedPermissions = await requestPermission([
-      { accessType: "read", recordType: "Steps" },
-      { accessType: "read", recordType: "Distance" },
-    ]);
-  
-    // check if granted
-  
-    const steps = await readRecords("Steps", {
-      timeRangeFilter: {
-        operator: "after",
-        startTime: "2023-07-27T12:00:00.405Z",
-        // endTime: "2023-07-27T23:53:15.405Z",
-      },
-    });
-    console.log("Steps: ", steps);
-  
-    const Distance = await readRecords("Distance", {
-      timeRangeFilter: {
-        operator: "between",
-        startTime: "2023-07-27T12:00:00.405Z",
-        endTime: "2023-07-27T23:53:15.405Z",
-      },
-    });
-    console.log("Distance: ", Distance);
-    const totalSteps = steps.reduce((sum, cur) => sum + cur.count, 0);
-    console.log("Total Steps: ", totalSteps);
+  const [date, setDate] = useState(new Date());
+  const { steps, flights, distance } = useHealthData(date);
+  console.log("Steps: ",steps, "Distance: ", distance, "Flights: ", flights);
+
+  const changeDate = (numDays) => {
+    const currentDate = new Date(date); // Create a copy of the current date
+    // Update the date by adding/subtracting the number of days
+    currentDate.setDate(currentDate.getDate() + numDays);
+
+    setDate(currentDate); // Update the state variable
   };
-useEffect(() => {
-  readSampleData();
-})
+  console.log(date);
+  // const readSampleData = async () => {
+  //   // initialize the client
+  //   const isInitialized = await initialize();
+  
+  //   // request permissions
+  //   const grantedPermissions = await requestPermission([
+  //     { accessType: "read", recordType: "Steps" },
+  //     { accessType: "read", recordType: "Distance" },
+  //   ]);
+  
+  //   // check if granted
+  
+  //   const steps = await readRecords("Steps", {
+  //     timeRangeFilter: {
+  //       operator: "after",
+  //       startTime: "2023-07-27T12:00:00.405Z",
+  //       // endTime: "2023-07-27T23:53:15.405Z",
+  //     },
+  //   });
+  //   console.log("Steps: ", steps);
+  
+  //   const Distance = await readRecords("Distance", {
+  //     timeRangeFilter: {
+  //       operator: "between",
+  //       startTime: "2023-07-27T12:00:00.405Z",
+  //       endTime: "2023-07-27T23:53:15.405Z",
+  //     },
+  //   });
+  //   console.log("Distance: ", Distance);
+  //   const totalSteps = steps.reduce((sum, cur) => sum + cur.count, 0);
+  //   console.log("Total Steps: ", totalSteps);
+  // };
+// useEffect(() => {
+//   readSampleData();
+// })
   return (
     <View
       darkColor={darkColor.darkGray}
       lightColor={ligntColors.lightGray}
       style={[styles.container]}
     >
-      <Text style={styles.h3}>Activities</Text>
+      <Text onPress={() => changeDate(+1)} style={styles.h3}>Activities</Text>
       <View
         darkColor={darkColor.darkGray}
         lightColor={ligntColors.lightGray}
